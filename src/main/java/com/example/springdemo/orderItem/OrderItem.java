@@ -13,7 +13,7 @@ public class OrderItem {
     @Id
     @GeneratedValue
     private UUID id;
-    private int amount;
-    @OneToOne
+    @ManyToOne
     private Product product;
+    private int amount;
 }

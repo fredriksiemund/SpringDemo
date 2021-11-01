@@ -19,6 +19,7 @@ public class Order {
     private LocalDate ordered;
     @OneToOne
     private Customer customer;
-    @ManyToMany
+    @OneToMany
+    @JoinColumn(name = "order_id") // The name of the foreign key in the order_items table
     private List<OrderItem> orderItems;
 }

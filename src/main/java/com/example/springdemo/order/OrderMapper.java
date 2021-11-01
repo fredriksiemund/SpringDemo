@@ -1,13 +1,21 @@
 package com.example.springdemo.order;
 
+import com.example.springdemo.orderItem.OrderItemMapper;
+import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
+import org.mapstruct.Mapping;
 
-@Mapper
+@Mapper(componentModel = "spring", // To create a bean for autowiring
+        injectionStrategy = InjectionStrategy.CONSTRUCTOR,
+        uses = OrderItemMapper.class)
 public interface OrderMapper {
-    OrderMapper INSTANCE = Mappers.getMapper(OrderMapper.class);
 
-    OrderDto toDto(Order jpa);
+    @Mapping(target = "customerId", source = "customer.id")
+    @Mapping(target = "orderItems", source = "orderItems")
+    OrderDto toDto(Order source);
 
-    Order toJpa(OrderDto dto);
+    @Mapping(target = "customer.id", source = "customerId")
+    @Mapping(target = "orderItems", source = "orderItems")
+    Order toJpa(OrderDto source);
+
 }

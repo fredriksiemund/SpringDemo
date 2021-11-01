@@ -1,6 +1,7 @@
 package com.example.springdemo.product;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -11,40 +12,39 @@ import java.util.stream.Collectors;
 @RestController
 public class ProductController {
     private final ProductService service;
-    private final ProductMapper mapper = ProductMapper.INSTANCE;
+    private final ProductMapper mapper;
 
-    public ProductController(ProductService service) {
+    public ProductController(ProductService service, ProductMapper mapper) {
         this.service = service;
+        this.mapper = mapper;
     }
 
     @GetMapping(path = "v1/products")
-    public List<ProductDto> all() {
-        return service.all()
+    public ResponseEntity<List<ProductDto>> all() {
+        List<ProductDto> result = service.all()
                 .stream()
                 .map(mapper::toDto)
                 .collect(Collectors.toList());
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @GetMapping("v1/products/{id}")
-    public ProductDto one(@PathVariable UUID id) {
-        ProductDto d = mapper.toDto(service.one(id));
-        System.out.println(d);
-        return d;
+    public ResponseEntity<ProductDto> one(@PathVariable UUID id) {
+        ProductDto result = mapper.toDto(service.one(id));
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @PostMapping(path = "v1/products")
     @ResponseStatus(HttpStatus.CREATED)
-    public ProductDto create(@Valid @RequestBody ProductDto body) {
-        Product request = mapper.toJpa(body);
-        Product result = service.create(request);
-        return mapper.toDto(result);
+    public ResponseEntity<ProductDto> create(@Valid @RequestBody ProductDto body) {
+        Product result = service.create(mapper.toJpa(body));
+        return new ResponseEntity<>(mapper.toDto(result), HttpStatus.OK);
     }
 
     @PatchMapping("v1/products/{id}")
-    public ProductDto update(@RequestBody ProductDto body, @PathVariable UUID id) {
-        Product request = mapper.toJpa(body);
-        Product result = service.update(request, id);
-        return mapper.toDto(result);
+    public ResponseEntity<ProductDto> update(@RequestBody ProductDto body, @PathVariable UUID id) {
+        Product result = service.update(mapper.toJpa(body), id);
+        return new ResponseEntity<>(mapper.toDto(result), HttpStatus.OK);
     }
 
     @DeleteMapping("v1/products/{id}")

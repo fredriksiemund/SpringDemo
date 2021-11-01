@@ -1,13 +1,15 @@
 package com.example.springdemo.orderItem;
 
+import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
+import org.mapstruct.Mapping;
 
-@Mapper
+@Mapper(componentModel = "spring",
+        injectionStrategy = InjectionStrategy.CONSTRUCTOR)
 public interface OrderItemMapper {
-    OrderItemMapper INSTANCE = Mappers.getMapper(OrderItemMapper.class);
+    @Mapping(target = "productId", source = "product.id")
+    OrderItemDto toDto(OrderItem source);
 
-    OrderItemDto toDto(OrderItem jpa);
-
-    OrderItem toJpa(OrderItemDto dto);
+    @Mapping(target = "product.id", source = "productId")
+    OrderItem toJpa(OrderItemDto source);
 }
