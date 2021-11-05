@@ -1,13 +1,18 @@
 package com.example.springdemo.product;
 
-import lombok.Data;
+import lombok.*;
 
+import javax.validation.constraints.*;
 import java.util.UUID;
 
 @Data
 public class ProductDto {
     private UUID id;
+    @NotBlank
     private String name;
-    private int amount = 0;
-    private double price;
+    @PositiveOrZero
+    private Integer amount = 0;
+    @PositiveOrZero
+    @NotNull
+    private Double price;
 }

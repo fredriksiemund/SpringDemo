@@ -8,5 +8,5 @@ import java.util.UUID;
 public class OrderItemDto {
     private UUID id;
     private UUID productId;
-    private int amount;
+    private Integer amount;
 }

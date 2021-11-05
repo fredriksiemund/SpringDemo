@@ -15,5 +15,5 @@ public class OrderItem {
     private UUID id;
     @ManyToOne
     private Product product;
-    private int amount;
+    private Integer amount;
 }
