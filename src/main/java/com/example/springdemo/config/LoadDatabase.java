@@ -9,11 +9,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 import java.time.LocalDate;
 import java.util.Random;
 
 @Configuration
+@Profile("!prod") // Don't run this when profile is prod
 public class LoadDatabase {
     private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
     private final Random r = new Random();
