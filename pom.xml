@@ -102,6 +102,26 @@
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
+            <plugin>
+                <!-- Build docker image using jib -->
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>3.1.4</version>
+                <configuration>
+                    <from>
+                        <image>openjdk:${java.version}-jdk-alpine</image>
+                    </from>
+                    <to>
+                        <image>fredriksiemund/spring-demo</image>
+                    </to>
+                    <container>
+                        <environment>
+                            <spring_profiles_active>prod</spring_profiles_active>
+                            <!-- Provide Azure connection string with -Djib.container.environment=AZURE_STORAGE_CONNECTION_STRING="value" -->
+                        </environment>
+                    </container>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
