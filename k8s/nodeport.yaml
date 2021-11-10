@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: spring-demo-nodeport
+spec:
+  type: NodePort
+  selector: # Find pods with label "app: spring-demo"
+    app: spring-demo
+  ports:
+    - name: nodeport
+      protocol: TCP
+      port: 8080 # Service incoming port
+      targetPort: 8080 # Pod incoming port

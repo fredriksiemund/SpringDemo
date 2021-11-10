@@ -117,7 +117,8 @@
                     <container>
                         <environment>
                             <spring_profiles_active>prod</spring_profiles_active>
-                            <!-- Provide Azure connection string with -Djib.container.environment=AZURE_STORAGE_CONNECTION_STRING="value" -->
+                            <AZURE_STORAGE_CONNECTION_STRING>DefaultEndpointsProtocol=https;AccountName=springbootdemo;AccountKey=RVAu2VAs67uFRbc3a0uURVkpKyFKqDkVG3QpUfZuL8+FeDIHk2EeeIDptRQ5MQ5PQefY2kE27yckxx+VHXeVeQ==;EndpointSuffix=core.windows.net</AZURE_STORAGE_CONNECTION_STRING>
+                            <!-- Secret vars can be added in build: -Djib.container.environment=VAR_NAME="value" -->
                         </environment>
                     </container>
                 </configuration>

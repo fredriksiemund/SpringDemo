@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-demo
+spec:
+  selector:
+    matchLabels:
+      app: spring-demo # The deployment should be in charge of all pods with label: "app: spring-demo"
+  template:
+    metadata:
+      labels:
+        app: spring-demo # We want the pod to have a label of "app: spring-demo"
+    spec:
+      containers:
+        - name: spring-demo
+          image: fredriksiemund/spring-demo
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: spring-demo-clusterip
+spec:
+  type: ClusterIP # Default, can be omitted
+  selector:
+    app: spring-demo
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+      name: http

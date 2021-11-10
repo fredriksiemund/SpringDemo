@@ -9,3 +9,8 @@ jpa:
       dialect: org.hibernate.dialect.PostgreSQLDialect
   hibernate:
     ddl-auto: create
+logging:
+  level:
+    org:
+      springframework:
+        web: DEBUG
