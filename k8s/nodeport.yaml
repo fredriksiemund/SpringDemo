@@ -7,7 +7,7 @@ spec:
   selector: # Find pods with label "app: spring-demo"
     app: spring-demo
   ports:
-    - name: nodeport
+    - name: http
       protocol: TCP
       port: 8080 # Service incoming port
       targetPort: 8080 # Pod incoming port

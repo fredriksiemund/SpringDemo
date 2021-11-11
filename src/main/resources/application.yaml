@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/dev
+    url: jdbc:postgresql://localhost:5432/dev # Change localhost to host.docker.internal when running in docker
     username: root
     password: root
 jpa:
